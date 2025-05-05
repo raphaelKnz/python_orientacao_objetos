@@ -25,10 +25,25 @@ class Restaurante:
     def activo(self):
         return 'Ativado' if self._status else 'Desativado'
     
-    def receber_avaliacoes(self, client, grade):
-        if 0>grade or grade>5:
-            print(f'nota do cliente {client} fora do permitido')
+    def receber_avaliacoes(self):
+        quantidade_avaliadores = 0
+        try:
+            quantidade_avaliadores = int(input('quantas pessoas querem avaliar o restaurante: '))
+        except ValueError:
+            print('Digite um numero válido')
             return
+        for i in range(quantidade_avaliadores):
+            client = str(input('entre com seu nome: '))
+            while True:
+                try:
+                    grade = float(input('entre com sua avaliacao de 0 a 5 estrelas: '))
+                    if 0<grade and grade<5:
+                        break
+                    else:
+                        print(f'nota do cliente {client} fora do permitido')
+                except ValueError:
+                    print('Digite um numero válido')
+            
         avaliacao = Avaliacao(client, grade)
         self._avaliacao.append(avaliacao)
 
